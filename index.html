@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kazi Mashinani - Rural Job Platform</title>
+    <style>
+       
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #01010c;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        nav button:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #home {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        #search-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #search-results {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .suggestion {
+            padding: 10px;
+            background: #f9f9f9;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .suggestion:hover {
+            background: #e9e9e9;
+        }
+        .job-listing {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background: #fff;
+        }
+        .job-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .communication {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .communication a {
+            padding: 8px 12px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .communication a.phone {
+            background: #0078D4;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: rgb(12, 26, 93);
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, select {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        /* Offline indicator */
+        #offline-indicator {
+            background: #ff9800;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .container, #home {
+                margin: 10px;
+                padding: 15px;
+            }
+            .job-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .communication {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+    </style>
+    
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+   
+    <div id="offline-indicator">You are offline. Job listings are cached for viewing.</div>
+
+    <header>
+        <h1>Kazi Mashinani</h1>
+        <p>Rural Job Platform - Connecting Workers and Employers in Kenya</p>
+       
+        <div id="language-selector">
+            <div id="google_translate_element"></div>
+        </div>
+    </header>
+
+    <nav>
+        <button onclick="showSection('home')">Home</button>
+        <button onclick="showSection('search')">Search Jobs</button>
+        <button onclick="showSection('post')">Post a Job</button>
+        <button onclick="showSection('jobs')">View Jobs</button>
+    </nav>
+
+
+    <div id="home">
+        <h2>Welcome to Kazi Mashinani</h2>
+        <div class="blog-content">
+            <p><strong>Discover Kazi Mashinani: Simplifying Job Search in Local Businesses</strong></p>
+            <p>In the heart of rural Kenya, finding work or hiring talent can often feel like a daunting task. Traditional job boards are urban-focused, leaving local businesses and workers in villages, towns, and rural areas underserved. That's where <b>Kazi Mashinani</b> comes in – a dedicated platform designed to bridge the gap and make job searching and posting as simple as a conversation with your neighbor.</p>
+            <p>Our platform simplifies the job search by focusing on local opportunities in agriculture, small trades, community services, and more. No more sifting through irrelevant listings or traveling long distances for interviews. With Kazi Mashinani, you can:</p>
+            <ul>
+                <li><strong>Search Easily:</strong> Enter a village, town, or rural area (like Kitale or Eldoret), and instantly see available jobs nearby. Our smart autocomplete suggests real locations from posted jobs and known Kenyan areas.</li>
+                <li><strong>Connect Directly:</strong> Reach out via phone or WhatsApp with one click – no endless emails or forms. Employers get quick responses from motivated local workers.</li>
+                <li><strong>Post for Free:</strong> Local businesses can advertise jobs in seconds, specifying details like farm hand roles or shop assistants, all tailored to your community.</li>
+                <li><strong>Offline Access:</strong> Even without internet, view cached job listings to stay connected to opportunities on the go.</li>
+            </ul>
+            <p>Whether you're a farmer needing seasonal help, a worker seeking daily wages, or a small business owner expanding your team, Kazi Mashinani empowers local economies by keeping jobs close to home. Join thousands of Kenyans already simplifying their work lives – it's free, fast, and fully supports English and Kiswahili.</p>
+        </div>
+        <div class="cta-buttons">
+            <button class="search-btn" onclick="showSection('search')">Search for Available Jobs</button>
+            <button onclick="showSection('post')">Post a Job</button>
+        </div>
+        <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #666;">Ready to get started? Choose your path above or explore the navigation menu.</p>
+    </div>
+
+    
+
+    <div class="container" id="search" style="display: none;">
+        <h2>Location-Based Search</h2>
+        <input type="text" id="search-input" placeholder="Type a rural area, village, or town in Kenya (e.g., Kitale, Eldoret)...">
+        <div id="search-results"></div>
+        <p>Search will show matching locations from posted jobs or known areas. Once selected, view jobs in that location.</p>
+    </div>
+
+    <div class="container" id="post" style="display: none;">
+        <h2>Post a Job (For Employers)</h2>
+        <form id="job-form">
+            <input type="text" id="job-title" placeholder="Job Title (e.g., Farm Hand)" required>
+            <textarea id="job-description" placeholder="Job Description and Details" required></textarea>
+            <input type="text" id="job-location" placeholder="Location (Village/Town)" required>
+            <input type="tel" id="employer-phone" placeholder="Enter your 9-digit number (e.g., 712345678)" value="+254" required>
+            <input type="tel" id="employer-whatsapp" placeholder="Enter your 9-digit number (e.g., 712345678, optional)" value="+254">
+            <button type="submit">Post Job</button>
+        </form>
+    </div>
+
+    <div class="container" id="jobs" style="display: none;">
+        <h2>Job Listings</h2>
+        <div id="job-listings"></div>
+    </div>
+
+    <script>
+        
+        const kenyanLocations = [
+            'Kitale', 'Eldoret', 'Kisumu', 'Nairobi', 'Mombasa', 'Nakuru', 'Nyeri', 'Meru', 'Embu', 'Machakos',
+            'Thika', 'Kakamega', 'Bungoma', 'Busia', 'Kisii', 'Kericho', 'Bomet', 'Narok', 'Kajiado', 'Machakos',
+            'Kilifi', 'Malindi', 'Lamu', 'Garissa', 'Wajir', 'Mandera', 'Isiolo', 'Marsabit', 'Moyale', 'Lodwar',
+            'Kakuma', 'Kitui', 'Mwingi', 'Makueni', 'Murang\'a', 'Kiambu', 'Nyandarua', 'Laikipia', 'Baringo',
+            'Samburu', 'West Pokot', 'Trans Nzoia', 'Uasin Gishu', 'Nandi', 'Vihiga', 'Siaya', 'Homa Bay',
+            'Migori', 'Kendu Bay', 'Rongo', 'Awendo', 'Suna', 'Ruiru', 'Limuru', 'Kijabe', 'Ngong', 'Kiserian',
+            'Ongata Rongai', 'Athi River', 'Konza', 'Wote', 'Makindu', 'Mtito Andei', 'Voi', 'Taveta', 'Wundanyi'
+        ];
+
+       
+        function showSection(sectionId) {
+            ['home', 'search', 'post', 'jobs'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+            if (sectionId === 'jobs') loadJobs();
+            if (sectionId === 'search') setupSearch();
+        }
+
+        
+        function generateJobHTML(job) {
+            return `
+                <div class="job-listing">
+                    <div class="job-details">
+                        <div>
+                            <h3>${job.title}</h3>
+                            <p>${job.description}</p>
+                            <p><strong>Location:</strong> ${job.location}</p>
+                        </div>
+                        <div class="communication">
+                            ${job.phone ? `<a href="tel:+${job.phone}" class="phone">Call</a>` : ''}
+                            ${job.whatsapp ? `<a href="https://wa.me/${job.whatsapp}?text=Interested in ${job.title} job in ${job.location}" target="_blank">WhatsApp</a>` : ''}
+                            <button class="delete-btn" onclick="deleteJob(${job.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        
+        function deleteJob(id) {
+            if (confirm('Are you sure you want to delete this job?')) {
+                let jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+                jobs = jobs.filter(job => job.id !== id);
+                localStorage.setItem('jobs', JSON.stringify(jobs));
+                alert('Job deleted successfully!');
+               
+                if (document.getElementById('jobs').style.display === 'block') {
+                    loadJobs();
+                } else if (document.getElementById('search').style.display === 'block') {
+                   
+                    alert('Job deleted. Please search again to see updates.');
+                }
+            }
+        }
+
+        
+        function selectLocation(location, results) {
+            const input = document.getElementById('search-input');
+            input.value = location;
+            results.innerHTML = `<p>Searching jobs in ${location}...</p>`;
+            const jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+            const matchingJobs = jobs.filter(job => job.location.toLowerCase().includes(location.toLowerCase()));
+            results.innerHTML = '';
+            if (matchingJobs.length === 0) {
+                results.innerHTML = `<p>No jobs found in or near ${location}. Try posting one or search another area!</p>`;
+            } else {
+                matchingJobs.forEach(job => {
+                    const div = document.createElement('div');
+                    div.className = 'job-listing';
+                    div.innerHTML = `
+                        <div class="job-details">
+                            <div>
+                                <h3>${job.title}</h3>
+                                <p>${job.description}</p>
+                                <p><strong>Location:</strong> ${job.location}</p>
+                            </div>
+                            <div class="communication">
+                                ${job.phone ? `<a href="tel:+${job.phone}" class="phone">Call</a>` : ''}
+                                ${job.whatsapp ? `<a href="https://wa.me/${job.whatsapp}?text=Interested in ${job.title} job in ${job.location}" target="_blank">WhatsApp</a>` : ''}
+                                <button class="delete-btn" onclick="deleteJob(${job.id})">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                    results.appendChild(div);
+                });
+            }
+        }
+
+        
+        function setupSearch() {
+            const input = document.getElementById('search-input');
+            const results = document.getElementById('search-results');
+            input.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                results.innerHTML = '';
+                if (query.length < 2) return;
+                const jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+                const uniqueJobLocations = [...new Set(jobs.map(job => job.location))].filter(loc => loc.toLowerCase().includes(query));
+                const fixedMatches = kenyanLocations.filter(loc => loc.toLowerCase().includes(query));
+                const allSuggestions = [...new Set([...uniqueJobLocations, ...fixedMatches])].slice(0, 10);
+                allSuggestions.forEach(match => {
+                    const div = document.createElement('div');
+                    div.className = 'suggestion';
+                    div.textContent = match;
+                    div.onclick = () => selectLocation(match, results);
+                    results.appendChild(div);
+                });
+                if (allSuggestions.length === 0) {
+                    results.innerHTML = '<p>No matching locations found.</p>';
+                }
+            });
+        }
+
+        
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,sw,kik,luo, mas,ebu,kam', // Add Kenyan languages like Kikuyu and Luo
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
+
+        // Function to format Kenyan phone number (+254)
+        function formatKenyanNumber(number) {
+            if (!number || number.trim() === '+254') return ''; // If only +254 is entered without digits, treat as empty
+            let digits = number.replace(/\D/g, ''); // Remove non-digits
+            if (digits.startsWith('0')) {
+                digits = digits.substring(1);
+            }
+            if (digits.length === 9 && digits.startsWith('7')) { // Kenyan mobile format
+                return '254' + digits;
+            }
+            // If already starts with 254, keep it; otherwise prepend 254 if it looks like a local number
+            return digits.startsWith('254') ? digits : '254' + digits;
+        }
+
+        // Job Posting Form
+        document.getElementById('job-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const phoneInput = document.getElementById('employer-phone').value.trim();
+            const whatsappInput = document.getElementById('employer-whatsapp').value.trim();
+            const formattedPhone = formatKenyanNumber(phoneInput);
+            const formattedWhatsapp = formatKenyanNumber(whatsappInput);
+            
+            // Validate phone is not empty after formatting
+            if (!formattedPhone) {
+                alert('Please enter a valid phone number.');
+                return;
+            }
+            
+            const job = {
+                title: document.getElementById('job-title').value,
+                description: document.getElementById('job-description').value,
+                location: document.getElementById('job-location').value,
+                phone: formattedPhone,
+                whatsapp: formattedWhatsapp || '', // Empty if no valid WhatsApp
+                id: Date.now()
+            };
+            let jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+            jobs.push(job);
+            localStorage.setItem('jobs', JSON.stringify(jobs));
+            alert('Job posted successfully!');
+            document.getElementById('job-form').reset();
+            // Reset the pre-filled values
+            document.getElementById('employer-phone').value = '+254';
+            document.getElementById('employer-whatsapp').value = '+254';
+        });
+
+        // Load Jobs from localStorage
+        function loadJobs() {
+            const jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+            const container = document.getElementById('job-listings');
+            container.innerHTML = '';
+            jobs.forEach(job => {
+                const div = document.createElement('div');
+                div.className = 'job-listing';
+                div.innerHTML = generateJobHTML(job);
+                container.appendChild(div);
+            });
+            if (jobs.length === 0) {
+                container.innerHTML = '<p>No jobs posted yet. Be the first!</p>';
+            }
+        }
+
+        // Offline Capability: Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed', err));
+        }
+
+        // Offline Detection
+        window.addEventListener('online', () => {
+            document.getElementById('offline-indicator').style.display = 'none';
+        });
+        window.addEventListener('offline', () => {
+            document.getElementById('offline-indicator').style.display = 'block';
+        });
+
+        // Initial load
+        showSection('home');
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (session
